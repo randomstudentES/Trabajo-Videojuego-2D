@@ -1,0 +1,50 @@
+# User-specific files
+.user
+.userprefs
+.idea/
+.vscode/
+
+# Windows Installer files
+Thumbs.db
+ehthumbs.db
+
+# Windows image file thumbs
+*.cab
+*.swp
+
+# OSX specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows specific files
+[Dd]esktop.ini
+
+# Unity specific files
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+
+# User Settings
+UserSettings/
+
+# Uncomment if you have integration with Rider
+# .idea/
+
+# Uncomment if you use JetBrains Rider
+# .idea/
+
+# Uncomment if you have the solution file in the root
+*.sln
+*.user
+*.userprefs
+
+# Uncomment if you have the Assembly-CSharp.csproj in the root
+*.csproj
+
+# Uncomment to ignore these files
+.vs/
+.vsconfig
