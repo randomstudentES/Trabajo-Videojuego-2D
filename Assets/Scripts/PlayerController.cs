@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject spawn;
     [SerializeField] private GameObject spawnProjectile;
     [SerializeField] private GameObject projectilePrefab;
+    private float delayDisparos = 0.3f;
+    private float ultimoDisparo = 0;
     bool enSuelo = false;
     void Start()
     {
@@ -87,10 +89,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("touchingFloor", false);
         }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && Time.time >= ultimoDisparo + delayDisparos)
         {
             animator.SetTrigger("attack");
             CreateProjectile();
+            ultimoDisparo = Time.time;
         }
 
         if (Input.GetKey(KeyCode.G))
