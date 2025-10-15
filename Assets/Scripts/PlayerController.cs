@@ -13,13 +13,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     [SerializeField] private GameObject cameraObject;
     [SerializeField] private GameObject spawn;
+    [SerializeField] private GameObject spawnProjectile;
+    [SerializeField] private GameObject projectilePrefab;
     bool enSuelo = false;
     void Start()
     {
         transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void setCameraPosition(){
         Vector3 newCameraPosition = cameraObject.transform.position;
-        newCameraPosition.x = transform.position.x;  // Sincroniza la posición X
+        newCameraPosition.x = transform.position.x;
         cameraObject.transform.position = newCameraPosition;
     }
 
@@ -57,11 +58,13 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new UnityEngine.Vector2(+speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = false;
+            spawnProjectile.GetComponent<Transform>().position = new Vector2(transform.position.x + 0.5f, transform.position.y);
         }
         else if (Input.GetKey(KeyCode.A))
         {
             rb.velocity = new UnityEngine.Vector2(-speed, rb.velocity.y);
             GetComponent<SpriteRenderer>().flipX = true;
+            spawnProjectile.GetComponent<Transform>().position = new Vector2(transform.position.x - 0.5f, transform.position.y);
         }
         else
         {
@@ -87,11 +90,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             animator.SetTrigger("attack");
-        }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            animator.SetTrigger("attack");
+            CreateProjectile();
         }
 
         if (Input.GetKey(KeyCode.G))
@@ -104,6 +103,11 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("crouch");
         }
 
+    }
+
+    void CreateProjectile()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, spawnProjectile.GetComponent<Transform>().position, spawnProjectile.GetComponent<Transform>().rotation);
     }
 
 }
