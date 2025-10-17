@@ -1,6 +1,7 @@
     using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,11 +19,18 @@ public class PlayerController : MonoBehaviour
     private float delayDisparos = 0.3f;
     private float ultimoDisparo = 0;
     bool enSuelo = false;
+    [SerializeField] private int maxDisparos;
+    private int disparosDisponibles;
+    private bool recargando = false;
+    [SerializeField] private int maxVidas;
+    private int vidas;
     void Start()
     {
         transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        disparosDisponibles = maxDisparos;
+        vidas = maxVidas;
     }
 
     // Update is called once per frame
@@ -48,11 +56,24 @@ public class PlayerController : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Muerte"))
             {
-                Vector3 posicion = spawn.transform.position;
-                transform.position = posicion;
+                revivir();
             }
 
         }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Pincha")
+        {
+            //rb.AddForce(transform.up * 5f, ForceMode2D.Impulse);
+            rb.rotation.z = 0.45f;
+            vidas -= 1;
+            if (vidas == 0)
+            {
+                revivir();
+            }
+        }
+    }
 
     public void Movement()
     {
@@ -89,11 +110,16 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("touchingFloor", false);
         }
 
-        if (Input.GetKey(KeyCode.Q) && Time.time >= ultimoDisparo + delayDisparos)
+        if (Input.GetKey(KeyCode.Q) && Time.time >= ultimoDisparo + delayDisparos && disparosDisponibles > 0 && !recargando)
         {
             animator.SetTrigger("attack");
             CreateProjectile();
             ultimoDisparo = Time.time;
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            StartCoroutine(recargar());
         }
 
         if (Input.GetKey(KeyCode.G))
@@ -111,6 +137,22 @@ public class PlayerController : MonoBehaviour
     void CreateProjectile()
     {
         GameObject projectile = Instantiate(projectilePrefab, spawnProjectile.GetComponent<Transform>().position, spawnProjectile.GetComponent<Transform>().rotation);
+        disparosDisponibles -= 1;
+    }
+
+    IEnumerator recargar()
+    {
+        recargando = true;
+        disparosDisponibles = maxDisparos;
+        yield return new WaitForSeconds(3);
+        recargando = false;
+    }
+
+    void revivir()
+    {
+        Vector3 posicion = spawn.transform.position;
+        transform.position = posicion;
+        vidas = maxVidas;
     }
 
 }
