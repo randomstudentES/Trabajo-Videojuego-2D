@@ -65,8 +65,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Pincha")
         {
-            //rb.AddForce(transform.up * 5f, ForceMode2D.Impulse);
-            rb.rotation.z = 0.45f;
             vidas -= 1;
             if (vidas == 0)
             {
