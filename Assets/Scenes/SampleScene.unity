@@ -278,7 +278,13 @@ MonoBehaviour:
   spawnProjectile: {fileID: 639898256}
   projectilePrefab: {fileID: 9168737362689951918, guid: ad7054b2b10184d47bb8808a2f66bdbc, type: 3}
   maxDisparos: 10
-  maxVidas: 5
+  maxVidas: 3
+  corazones:
+  - {fileID: 2123483550}
+  - {fileID: 294875677}
+  - {fileID: 255376861}
+  fullHeart: {fileID: 843970699, guid: f20ac2d251ea7e6428317c56463419fd, type: 3}
+  emptyHeart: {fileID: -1153405168, guid: f20ac2d251ea7e6428317c56463419fd, type: 3}
 --- !u!70 &171854602
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

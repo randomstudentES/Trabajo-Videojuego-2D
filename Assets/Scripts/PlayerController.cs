@@ -1,8 +1,10 @@
     using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +26,11 @@ public class PlayerController : MonoBehaviour
     private bool recargando = false;
     [SerializeField] private int maxVidas;
     private int vidas;
+
+    public Image[] corazones;
+    [SerializeField] private Sprite fullHeart;
+    [SerializeField] private Sprite emptyHeart;
+
     void Start()
     {
         transform = GetComponent<Transform>();
@@ -65,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Pincha")
         {
+            actualizarCorazones();
             vidas -= 1;
             if (vidas == 0)
             {
@@ -151,6 +159,26 @@ public class PlayerController : MonoBehaviour
         Vector3 posicion = spawn.transform.position;
         transform.position = posicion;
         vidas = maxVidas;
+        llenarTodosCorazones();
+    }
+
+    void actualizarCorazones()
+    {
+        for (int i = 0; i < corazones.Length; i++)
+        {
+            if (i < vidas - 1)
+                corazones[i].sprite = fullHeart;
+            else
+                corazones[i].sprite = emptyHeart;
+        }
+    }
+
+    void llenarTodosCorazones()
+    {
+        for (int i = 0; i < corazones.Length; i++)
+        {
+            corazones[i].sprite = fullHeart;
+        }
     }
 
 }
