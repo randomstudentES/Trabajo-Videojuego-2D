@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 
+    [SerializeField] private GameObject puntuacionTexto;
+    private TextMeshProUGUI tmp;
+    
     public int puntuacion = 0;
 
     void Start()
@@ -40,6 +44,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         disparosDisponibles = maxDisparos;
         vidas = maxVidas;
+        tmp = puntuacionTexto.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -47,6 +52,12 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         setCameraPosition();
+    }
+
+    public void sumarPuntos(int puntos)
+    {
+        puntuacion += 100;
+        tmp.text = "Puntuacion: " + puntuacion;
     }
 
     private void setCameraPosition(){

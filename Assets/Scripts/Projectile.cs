@@ -38,9 +38,7 @@ public class Projectile : MonoBehaviour
             collision.gameObject.GetComponent<Animator>().SetTrigger("Dead");
             StartCoroutine(DestroyEnemyAfterDelay(collision.gameObject, 0.4f));
 
-            player.GetComponent<PlayerController>().puntuacion += 100;
-            Debug.Log(player.GetComponent<PlayerController>().puntuacion);
-
+            player.GetComponent<PlayerController>().sumarPuntos(100);
         }
     }
 
