@@ -40,14 +40,20 @@ public class PlayerController : MonoBehaviour
     public List<Sprite> inventario = new List<Sprite>();
     [SerializeField] Image[] objetosInventario;
     [SerializeField] GameObject inventarioEntero;
+
+    private AudioSource audiosource;
+    [SerializeField] public AudioClip recogerPocion;
+
     void Start()
     {
+        inventarioEntero.SetActive(false);
         transform = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         disparosDisponibles = maxDisparos;
         vidas = maxVidas;
         tmp = puntuacionTexto.GetComponent<TextMeshProUGUI>();
+        audiosource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -123,6 +129,8 @@ public class PlayerController : MonoBehaviour
             color.a = 1f;             // Cambiar alfa
             img.color = color;
         }
+
+        audiosource.PlayOneShot(recogerPocion);
 
         Destroy(collision.gameObject);
 
