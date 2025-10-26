@@ -7,6 +7,9 @@ TagManager:
   - Suelo
   - Muerte
   - Pincha
+  - Proyectil
+  - Enemy
+  - Enemy2
   layers:
   - Default
   - TransparentFX
@@ -14,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Suelo
   - 
   - 
   - 

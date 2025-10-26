@@ -66,7 +66,17 @@ public class PlayerController : MonoBehaviour
                 revivir();
             }
 
-        }
+            if (collision.gameObject.tag == "Enemy")
+            {
+                actualizarCorazones();
+                vidas -= 1;
+                if (vidas == 0)
+                {
+                    revivir();
+                }
+            }
+
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

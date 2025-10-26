@@ -39,13 +39,4 @@ public class SlimeController : MonoBehaviour
         velocidad *= -1;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        if (sensorSuelo != null)
-        {
-            Gizmos.color = Color.red;
-            Vector2 direccion = mirandoDerecha ? new Vector2(1, -1).normalized : new Vector2(-1, -1).normalized;
-            Gizmos.DrawLine(sensorSuelo.position, sensorSuelo.position + (Vector3)direccion * distanciaSensor);
-        }
-    }
 }
