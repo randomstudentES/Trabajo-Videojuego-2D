@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     private AudioSource audiosource;
     [SerializeField] public AudioClip recogerPocion;
 
+    private bool hielo = false;
+
     void Start()
     {
         inventarioEntero.SetActive(false);
@@ -77,16 +79,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Suelo"))
+            if (collision.gameObject.CompareTag("Suelo") || collision.gameObject.CompareTag("Hielo"))
             {
                 enSuelo = true;
                 animator.SetBool("touchingFloor", true);
             }
 
-            if (collision.gameObject.CompareTag("Muerte"))
+            if (collision.gameObject.CompareTag("Suelo"))
             {
-                revivir();
+                hielo = false;
+            } else
+            {
+                hielo = true;
             }
+
+            if (collision.gameObject.CompareTag("Muerte"))
+        {
+            revivir();
+        }
 
             if (collision.gameObject.tag == "Enemy")
             {
@@ -150,7 +160,7 @@ public class PlayerController : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
             spawnProjectile.GetComponent<Transform>().position = new Vector2(transform.position.x - 0.5f, transform.position.y);
         }
-        else
+        else if (!hielo)
         {
             rb.velocity = new UnityEngine.Vector2(0, rb.velocity.y);
         }
