@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 
+    public int puntuacion = 0;
+
     void Start()
     {
         transform = GetComponent<Transform>();
