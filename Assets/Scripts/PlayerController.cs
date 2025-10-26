@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     
     public int puntuacion = 0;
 
+    public List<Sprite> inventario = new List<Sprite>();
+    [SerializeField] Image[] objetosInventario;
+    [SerializeField] GameObject inventarioEntero;
     void Start()
     {
         transform = GetComponent<Transform>();
@@ -102,6 +105,27 @@ public class PlayerController : MonoBehaviour
                 revivir();
             }
         }
+
+        if (collision.gameObject.tag == "Object")
+        {
+            actualizarInvetario(collision);
+        }
+    }
+
+    public void actualizarInvetario(Collider2D collision)
+    {
+        inventario.Add(collision.gameObject.GetComponent<SpriteRenderer>().sprite);
+        for (int i = 0; i < inventario.Count; i++)
+        {
+            objetosInventario[i].sprite = inventario[i];
+            Image img = objetosInventario[i];  // Tu Image
+            Color color = img.color;  // Copiar color
+            color.a = 1f;             // Cambiar alfa
+            img.color = color;
+        }
+
+        Destroy(collision.gameObject);
+
     }
 
     public void Movement()
@@ -159,6 +183,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             animator.SetTrigger("crouch");
+        }
+
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            inventarioEntero.SetActive(!inventarioEntero.activeSelf);
         }
 
     }
