@@ -31,4 +31,19 @@ public class Projectile : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<Animator>().SetTrigger("Dead");
+            StartCoroutine(DestroyEnemyAfterDelay(collision.gameObject, 0.4f));
+        }
+    }
+
+    private IEnumerator DestroyEnemyAfterDelay(GameObject enemy, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(enemy);
+    }
+
 }

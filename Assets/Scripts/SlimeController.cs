@@ -6,20 +6,23 @@ public class SlimeController : MonoBehaviour
     public Transform sensorSuelo;
     public float distanciaSensor = 0.2f;
     public LayerMask capaSuelo;
+    private Animator animator;
 
     private bool mirandoDerecha = true;
 
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
-        // Movimiento constante
-        transform.Translate(Vector2.right * velocidad * Time.deltaTime);
+                transform.Translate(Vector2.right * velocidad * Time.deltaTime);
 
         Vector2 direccionRaycast = mirandoDerecha ? new Vector2(1, -1).normalized : new Vector2(-1, -1).normalized;
 
-        // Lanzar raycast
         RaycastHit2D hit = Physics2D.Raycast(sensorSuelo.position, direccionRaycast, distanciaSensor, capaSuelo);
 
-        // Si no detecta suelo, girar
         if (hit.collider == null)
         {
             Girar();
@@ -30,7 +33,7 @@ public class SlimeController : MonoBehaviour
     {
         mirandoDerecha = !mirandoDerecha;
         Vector3 escala = transform.localScale;
-        escala.x *= -1; // Invertir sprite
+        escala.x *= -1;
         transform.localScale = escala;
 
         velocidad *= -1;
