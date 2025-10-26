@@ -16861,6 +16861,8 @@ MonoBehaviour:
 
     G -> Bailar
 
+    I -> Inventario
+
     Shift Izquierdo -> Agacharse'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 54337deed543f584c859d82267c8262f, type: 2}
